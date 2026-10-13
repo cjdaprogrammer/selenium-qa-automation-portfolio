@@ -4,21 +4,23 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class CartPage:
+    # Locators
+    CART_CONTAINER = (By.ID, "cart_contents_container")
     CART_ITEMS = (By.CLASS_NAME, "cart_item")
     PRODUCT_NAMES = (By.CLASS_NAME, "inventory_item_name")
     PRODUCT_PRICES = (By.CLASS_NAME, "inventory_item_price")
     PRODUCT_QUANTITIES = (By.CLASS_NAME, "cart_quantity")
     CHECKOUT_BUTTON = (By.ID, "checkout")
+    CHECKOUT_INFO_CONTAINER = (By.ID, "checkout_info_container")
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 15)
 
     def wait_until_loaded(self):
+        """Wait until the shopping cart page is visible."""
         self.wait.until(
-            EC.visibility_of_element_located(
-                (By.ID, "cart_contents_container")
-            )
+            EC.visibility_of_element_located(self.CART_CONTAINER)
         )
         return self
 
@@ -30,9 +32,7 @@ class CartPage:
     def get_product_prices(self):
         """Return cart product prices as floats."""
         elements = self.wait.until(
-            EC.visibility_of_all_elements_located(
-                self.PRODUCT_PRICES
-            )
+            EC.visibility_of_all_elements_located(self.PRODUCT_PRICES)
         )
         return [
             float(element.text.replace("$", ""))
@@ -62,15 +62,34 @@ class CartPage:
 
     def remove_backpack(self):
         """Remove the Sauce Labs Backpack from the cart."""
-        locator = (By.ID, "remove-sauce-labs-backpack")
+        remove_button = (By.ID, "remove-sauce-labs-backpack")
+
         self.wait.until(
-            EC.element_to_be_clickable(locator)
+            EC.element_to_be_clickable(remove_button)
         ).click()
+
+        # Wait until the product row is removed from the cart.
+        self.wait.until(
+            lambda driver: len(
+                driver.find_elements(*self.CART_ITEMS)
+            ) == 0
+        )
+
         return self
 
     def proceed_to_checkout(self):
-        """Click the checkout button."""
-        self.wait.until(
+        """Open checkout and wait for the customer information page."""
+        self.wait_until_loaded()
+
+        checkout_button = self.wait.until(
             EC.element_to_be_clickable(self.CHECKOUT_BUTTON)
-        ).click()
+        )
+        checkout_button.click()
+
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.CHECKOUT_INFO_CONTAINER
+            )
+        )
+
         return self
