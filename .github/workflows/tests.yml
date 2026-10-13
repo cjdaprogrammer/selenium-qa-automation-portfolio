@@ -1,4 +1,4 @@
-
+```yaml
 name: Selenium QA Automation
 
 on:
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v2
         with:
-          install-chromedriver: true
+          chrome-version: stable
 
       - name: Install dependencies
         run: |
