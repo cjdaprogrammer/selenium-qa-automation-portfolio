@@ -36,6 +36,20 @@ jobs:
         run: |
           google-chrome --version
 
+      - name: Remove conflicting system ChromeDriver
+        run: |
+          if command -v chromedriver >/dev/null 2>&1; then
+            echo "Removing system ChromeDriver: $(command -v chromedriver)"
+            sudo rm -f "$(command -v chromedriver)"
+          fi
+
+          if command -v chromedriver >/dev/null 2>&1; then
+            echo "ERROR: ChromeDriver is still available on PATH."
+            exit 1
+          fi
+
+          echo "Selenium Manager will locate a compatible ChromeDriver."
+
       - name: Run automated tests and generate report
         env:
           SELENIUM_BROWSER: chrome
