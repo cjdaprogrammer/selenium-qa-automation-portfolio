@@ -1,108 +1,82 @@
 # Selenium QA Automation Portfolio
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![Selenium](https://img.shields.io/badge/Selenium-WebDriver-green?logo=selenium&logoColor=white)
-![Pytest](https://img.shields.io/badge/Pytest-Testing-blue?logo=pytest&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088FF?logo=githubactions&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Selenium](https://img.shields.io/badge/Selenium-WebDriver-green)
+![Pytest](https://img.shields.io/badge/Pytest-Testing-orange)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-success)
 
-**An automated software testing project demonstrating functional testing, regression testing, Page Object Model design, and continuous integration using Selenium WebDriver and pytest.**
+A practical QA automation portfolio demonstrating functional testing, regression testing, Page Object Model design, test reporting, failure screenshots, and continuous integration using Selenium WebDriver and pytest.
 
-[View Repository](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio) · [View Test Workflow](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio/actions)
+**Applications tested:** SauceDemo and NEXUS.
 
 ## Project Overview
 
-This project demonstrates practical QA automation skills through automated tests for two applications: SauceDemo and NEXUS.
+This project demonstrates how automated UI tests can validate essential application behavior, detect regressions, and provide repeatable test results.
 
-The test suite validates important application behavior, including login functionality, inventory display, shopping cart operations, checkout workflows, form validation, navigation, and task creation.
-
-The framework is designed to be maintainable, reusable, and suitable for running locally and in a continuous integration environment.
+The framework uses reusable page objects, explicit waits, pytest fixtures, HTML reports, and GitHub Actions to support maintainable automated testing.
 
 ## Test Results
 
 | Metric | Result |
 |---|---|
-| Total automated tests | 17 |
+| Automated test cases | 17 |
 | Local test execution | 17 passed |
 | GitHub Actions execution | 17 passed |
-| Latest recorded CI execution time | 23.11 seconds |
-| Automated test framework | pytest |
-| Browser automation | Selenium WebDriver |
+| Browser used locally | Microsoft Edge |
+| Browser used in CI | Google Chrome |
+| Test framework | pytest |
+| Automation tool | Selenium WebDriver |
 
-*Results reflect the successful test runs recorded during project development. Test results may change when the code or test environment changes.*
-
-## Technologies Used
-
-- **Python 3.11** — programming language for the automation framework.
-- **Selenium WebDriver** — browser automation and UI interaction.
-- **pytest** — test execution, fixtures, assertions, and test organization.
-- **pytest-html** — HTML test report generation.
-- **Page Object Model (POM)** — separates page interactions from test logic.
-- **Git and GitHub** — source control and project hosting.
-- **GitHub Actions** — automated test execution in a Linux CI environment.
-- **Microsoft Edge and Google Chrome** — local and CI browser testing.
+*Results reflect the successful executions completed during project development.*
 
 ## Test Coverage
 
-### 1. SauceDemo — Login and Inventory
+### SauceDemo
+- Valid login
+- Invalid login
+- Empty login validation
+- Locked-out user validation
+- Product inventory display
+- Add product to cart
+- Verify cart contents
+- Sort products by price
+- Remove a product from the cart
+- Complete checkout
+- Validate required checkout fields
 
-The automated tests cover:
+### NEXUS
+- Dashboard loading
+- Navigation between application pages
+- Task creation form visibility
+- Add a task
 
-- Successful login with valid credentials.
-- Rejection of invalid credentials.
-- Validation of empty login fields.
-- Display of inventory products.
-- Adding a product to the shopping cart.
-- Verifying the correct product in the cart.
-- Preventing login for a locked-out user.
-- Sorting products by price from low to high.
+## Technology Stack
 
-### 2. SauceDemo — Cart and Checkout
-
-The automated tests cover:
-
-- Removing a product from the shopping cart.
-- Completing the checkout process.
-- Validating a missing first name.
-- Validating a missing last name.
-- Validating a missing postal code.
-
-### 3. NEXUS — Dashboard and Tasks
-
-The automated tests cover:
-
-- Dashboard loading.
-- Navigation between application pages.
-- Opening the add-task form.
-- Adding a task.
+- Python 3.11
+- Selenium WebDriver
+- pytest
+- pytest-html
+- Page Object Model (POM)
+- GitHub Actions
+- Microsoft Edge for local execution
+- Google Chrome for CI execution
 
 ## Project Structure
 
 ```text
-selenium-qa-automation-portfolio/
-│
+test/
 ├── .github/
 │   └── workflows/
 │       └── tests.yml
-│
 ├── pages/
 │   ├── login_page.py
 │   ├── inventory_page.py
 │   ├── cart_page.py
 │   └── checkout_page.py
-│
 ├── tests/
 │   ├── nexus/
-│   │   ├── test_nexus.py
-│   │   └── test_nexus_tasks.py
-│   │
 │   └── saucedemo/
-│       ├── test_login.py
-│       └── test_checkout.py
-│
 ├── reports/
-│   ├── report.html
-│   └── screenshots/
-│
 ├── conftest.py
 ├── pytest.ini
 ├── requirements.txt
@@ -110,18 +84,7 @@ selenium-qa-automation-portfolio/
 └── README.md
 ```
 
-*The structure above reflects the main project files; generated report and screenshot files may vary depending on your local setup and `.gitignore` rules.*
-
 ## Getting Started
-
-### Prerequisites
-
-Install the following:
-
-- Python 3.11 or a compatible Python 3 version.
-- Git.
-- Microsoft Edge for local execution, or Google Chrome if you configure the framework to use Chrome.
-- A working internet connection to access the applications under test.
 
 ### 1. Clone the repository
 
@@ -132,21 +95,23 @@ cd selenium-qa-automation-portfolio
 
 ### 2. Create a virtual environment
 
-On Windows PowerShell:
-
-```powershell
+```bash
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
 ```
 
-If PowerShell prevents activation, you can run the Python executable inside `.venv` directly or use another supported activation method.
+Activate it in Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
 ### 3. Install dependencies
 
 ```bash
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
+
+Make sure the required browser is installed. Selenium Manager helps manage the browser driver.
 
 ### 4. Run the complete test suite
 
@@ -160,60 +125,48 @@ python -m pytest -v
 python -m pytest -v --html=reports/report.html --self-contained-html
 ```
 
-Open the generated report on Windows:
+Open the generated report:
 
 ```powershell
 Start-Process reports/report.html
 ```
 
-The report includes the results of the test run. Its contents are generated each time pytest executes.
-
 ## Continuous Integration
 
-The project uses GitHub Actions to run automated tests when changes are pushed to the configured branches, when pull requests target those branches, or when the workflow is manually triggered.
+GitHub Actions runs the automated test suite when changes are pushed to the configured branches or a pull request is opened.
 
 The workflow:
-
 1. Checks out the repository.
 2. Sets up Python.
-3. Installs Chrome.
-4. Installs the Python dependencies.
-5. Checks the Chrome installation and removes a conflicting system ChromeDriver when necessary.
-6. Runs the pytest suite in headless Chrome.
-7. Generates an HTML report.
-8. Uploads the report and available failure screenshots as workflow artifacts.
+3. Installs Chrome and project dependencies.
+4. Executes the pytest suite.
+5. Generates an HTML report.
+6. Uploads test reports as workflow artifacts.
 
-View workflow runs and execution results:
+View the [GitHub Actions workflow runs](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio/actions).
 
-**[GitHub Actions — Selenium QA Automation](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio/actions)**
+## QA Practices Demonstrated
 
-## QA Skills Demonstrated
-
-This project demonstrates experience with:
-
-- Writing and executing automated test cases.
-- Positive and negative test scenarios.
-- UI functional and regression testing.
-- Form validation and error-message verification.
-- Browser automation and explicit waits.
-- Reusable page objects and pytest fixtures.
-- Assertions and automated test reporting.
-- Failure screenshots and troubleshooting.
-- Version control with Git.
-- Continuous integration using GitHub Actions.
-- Debugging differences between local and CI environments.
+- Positive and negative test scenarios
+- Required-field validation
+- Assertions and expected-result verification
+- Reusable Page Object Model classes
+- Explicit waits for UI synchronization
+- pytest fixtures and browser cleanup
+- HTML test reporting
+- Screenshots on test failures
+- Continuous integration with GitHub Actions
+- Debugging browser and driver compatibility issues
 
 ## Future Improvements
 
-Potential enhancements include:
-
-- Expand test coverage for additional user journeys.
-- Add more negative and boundary-value scenarios.
-- Improve test data management and configuration.
-- Add structured logging and clearer failure diagnostics.
-- Add cross-browser CI testing.
-- Document test cases and defect reports separately.
-- Improve execution speed and test isolation.
+- Add API testing
+- Add more boundary-value and negative scenarios
+- Add test data management
+- Add structured logging
+- Expand cross-browser testing
+- Improve test isolation and execution speed
+- Add more detailed defect reports
 
 ## Author
 
