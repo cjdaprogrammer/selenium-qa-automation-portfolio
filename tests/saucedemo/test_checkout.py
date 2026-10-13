@@ -14,15 +14,21 @@ def login_and_add_backpack(driver):
 
 
 def test_remove_product_from_cart(driver):
-    """Verify that a product can be removed from the cart."""
+    """Verify that removing a product leaves the cart empty."""
     login_and_add_backpack(driver)
 
-    cart = CartPage(driver)
-    assert "Sauce Labs Backpack" in cart.get_product_names()
+    cart = CartPage(driver).wait_until_loaded()
 
+    # Confirm the backpack is in the cart before removal.
+    assert cart.is_product_in_cart("Sauce Labs Backpack")
+    assert cart.get_cart_item_count() == 1
+
+    # Remove the backpack.
     cart.remove_backpack()
 
-    assert cart.get_cart_items() == []
+    # Verify the product is actually gone.
+    assert cart.get_cart_item_count() == 0
+    assert not cart.is_product_in_cart("Sauce Labs Backpack")
 
 
 def test_complete_checkout(driver):

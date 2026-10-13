@@ -90,8 +90,9 @@ def test_add_product_to_cart(driver):
     assert inventory.get_cart_count() == "1"
 
 
+
 def test_cart_contains_correct_product(driver):
-    """Verify that the selected product appears in the cart."""
+    """Verify the cart displays the correct product, price, and quantity."""
     LoginPage(driver).open().login(
         "standard_user",
         "secret_sauce",
@@ -101,10 +102,13 @@ def test_cart_contains_correct_product(driver):
     inventory.add_backpack_to_cart()
     inventory.open_cart()
 
-    cart = CartPage(driver)
+    cart = CartPage(driver).wait_until_loaded()
 
-    assert "Sauce Labs Backpack" in cart.get_product_names()
     assert "/cart.html" in driver.current_url
+    assert cart.is_product_in_cart("Sauce Labs Backpack")
+    assert cart.get_product_prices() == [29.99]
+    assert cart.get_product_quantities() == [1]
+    assert cart.get_cart_item_count() == 1
 
 
 def test_products_can_be_sorted_by_price_low_to_high(driver):
