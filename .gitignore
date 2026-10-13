@@ -1,0 +1,24 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Pytest
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Test reports and screenshots
+reports/*
+!reports/report.html
+reports/screenshots/
+screenshots/
+
+# Operating system and editor
+.DS_Store
+Thumbs.db
+.vscode/
