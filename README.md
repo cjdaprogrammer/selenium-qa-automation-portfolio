@@ -2,55 +2,60 @@
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Selenium](https://img.shields.io/badge/Selenium-WebDriver-green)
-![Pytest](https://img.shields.io/badge/Pytest-Testing-orange)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-success)
+![Pytest](https://img.shields.io/badge/Pytest-19%20Tests-orange)
+![GitHub Actions](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio/actions/workflows/tests.yml/badge.svg)
 
-A practical QA automation portfolio demonstrating functional testing, regression testing, Page Object Model (POM) design, automated test reporting, failure screenshots, and continuous integration using Selenium WebDriver and pytest.
+A practical QA automation portfolio demonstrating functional testing, regression testing, the Page Object Model (POM), automated test reporting, failure screenshots, and continuous integration using Selenium WebDriver and pytest.
 
 **Applications tested:** SauceDemo and NEXUS.
 
 ## Project Overview
 
-This project demonstrates how automated UI tests can validate essential application behavior, identify regressions, and provide repeatable test results.
+This project demonstrates how automated UI tests can validate application behavior, verify expected results, and help detect regressions.
 
-The framework uses reusable page objects, explicit waits, pytest fixtures, HTML reports, failure screenshots, and GitHub Actions to support maintainable automated testing.
+The framework includes reusable page objects, explicit waits, pytest fixtures, HTML test reports, screenshots on test failures, and GitHub Actions for continuous integration.
 
 ## Test Results
 
 | Metric | Result |
 |---|---|
-| Automated test cases | 17 |
-| Local test execution | 17 passed |
-| GitHub Actions execution | 17 passed |
+| Automated test cases | 19 |
+| Latest local execution | 19 passed |
+| Latest GitHub Actions execution | 19 passed |
 | Local browser | Microsoft Edge |
 | CI browser | Google Chrome |
 | Test framework | pytest |
 | Automation tool | Selenium WebDriver |
 
-*These results reflect successful executions completed during project development. Rerun the suite to verify the current results after subsequent changes.*
+*Results reflect the latest executions verified during project development. Future code changes may affect test results.*
 
 ## Test Coverage
 
 ### SauceDemo
 
+The automated tests cover:
+
 - Valid login
 - Invalid login
 - Empty login validation
+- Username and password required-field validation
 - Locked-out user validation
 - Product inventory display
-- Add a product to the cart
-- Verify cart contents
-- Sort products by price
-- Remove a product from the cart
-- Complete checkout
-- Validate required checkout fields
+- Adding a product to the cart
+- Verifying the correct cart product
+- Sorting products by price, low to high
+- Removing a product from the cart
+- Completing checkout
+- Checkout required-field validation for first name, last name, and postal code
 
 ### NEXUS
+
+The automated tests cover:
 
 - Dashboard loading
 - Navigation between application pages
 - Add-task form visibility
-- Add a task
+- Adding a task
 
 ## Technology Stack
 
@@ -95,9 +100,16 @@ selenium-qa-automation-portfolio/
 └── README.md
 ```
 
-*This tree represents the intended project layout. Keep it synchronized with the files actually present in the repository.*
-
 ## Getting Started
+
+### Prerequisites
+
+- Python 3.11 or a compatible Python 3 version
+- Git
+- Microsoft Edge or Google Chrome
+- Internet access to load the demo applications and install dependencies
+
+Selenium Manager can automatically manage compatible browser drivers in supported environments.
 
 ### 1. Clone the repository
 
@@ -118,7 +130,7 @@ Activate it in Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 ```
 
-If you're using Command Prompt instead:
+For Windows Command Prompt:
 
 ```bat
 .venv\Scripts\activate.bat
@@ -130,42 +142,44 @@ If you're using Command Prompt instead:
 python -m pip install -r requirements.txt
 ```
 
-Ensure the required browser is installed. Selenium Manager can help manage the browser driver.
-
 ### 4. Run the automated test suite
 
 ```bash
-python -m pytest -v
+python -m pytest tests -v
 ```
 
-### 5. Generate an HTML test report
+### 5. Generate an HTML report
+
+Ensure the `reports` directory exists, then run:
 
 ```bash
-python -m pytest -v --html=reports/report.html --self-contained-html
+python -m pytest tests -v --html=reports/report.html --self-contained-html
 ```
 
-Open the generated report in Windows PowerShell:
+Open the report in Windows PowerShell:
 
 ```powershell
 Start-Process reports/report.html
 ```
 
-The report contains the execution results from that run. If the `reports` directory does not exist, create it before running the report command.
+The HTML report records the results of that particular test execution.
 
 ## Continuous Integration
 
-GitHub Actions automates test execution when changes are pushed to configured branches or a pull request is opened, according to the workflow configuration.
+GitHub Actions runs the automated test suite according to the configured workflow triggers.
 
 The workflow is designed to:
 
 1. Check out the repository.
 2. Set up Python.
-3. Install the required browser and project dependencies.
+3. Install the required dependencies and browser components.
 4. Execute the pytest suite.
 5. Generate an HTML test report.
-6. Upload test reports as workflow artifacts, if configured.
+6. Upload reports as workflow artifacts when configured.
 
-View the [GitHub Actions workflow runs](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio/actions).
+**Latest verified result:** 19 tests passed in GitHub Actions.
+
+[View GitHub Actions workflow runs](https://github.com/cjdaprogrammer/selenium-qa-automation-portfolio/actions)
 
 ## QA Practices Demonstrated
 
@@ -185,35 +199,34 @@ View the [GitHub Actions workflow runs](https://github.com/cjdaprogrammer/seleni
 
 ## QA Documentation
 
-The following documents demonstrate practical QA documentation skills and support the testing activities in this portfolio.
-
 | Document | Description |
 |---|---|
 | [Test Plan](docs/test-plan.md) | Defines testing objectives, scope, environment, approach, and exit criteria. |
 | [Manual Test Cases](docs/manual-test-cases.md) | Documents manual test scenarios for SauceDemo and NEXUS. |
-| [Bug Report](docs/bug-report.md) | Provides a defect-reporting template and a clearly labeled hypothetical example. |
+| [Bug Report](docs/bug-report.md) | Provides defect-reporting documentation and a clearly labeled hypothetical example. |
 | [Requirements Traceability Matrix](docs/requirements-traceability-matrix.md) | Maps requirements to test cases and automation scripts. |
 
-### Testing Skills
+## Skills Demonstrated
 
-- Writing and organizing test cases
+- Test case design and organization
 - Functional and negative testing
-- UI test automation using Selenium WebDriver
+- UI automation using Selenium WebDriver
+- Python test automation with pytest
 - Test execution and result reporting
 - Defect documentation
 - Requirements traceability
 - Continuous integration using GitHub Actions
+- Debugging and troubleshooting automated tests
 
 ## Future Improvements
 
-- Add API testing
+- Add API testing with pytest and HTTPX
 - Expand boundary-value and negative testing
 - Introduce test data management
 - Add structured logging
-- Expand cross-browser testing
+- Expand cross-browser coverage
 - Improve test isolation and execution speed
-- Add verified defect examples and regression scenarios
-- Expand reporting and test coverage metrics
+- Add further regression scenarios and reporting metrics
 
 ## Author
 
@@ -221,4 +234,4 @@ The following documents demonstrate practical QA documentation skills and suppor
 
 GitHub: [@cjdaprogrammer](https://github.com/cjdaprogrammer)
 
-This project was created to demonstrate practical skills in software quality assurance, UI automation, test design, debugging, test documentation, and continuous integration.
+This project was created to demonstrate practical software quality assurance skills, UI test automation, test design, debugging, documentation, and continuous integration.
