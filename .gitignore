@@ -13,9 +13,7 @@ htmlcov/
 .coverage
 
 # Test reports and screenshots
-reports/*
-!reports/report.html
-reports/screenshots/
+reports/
 screenshots/
 
 # Operating system and editor
